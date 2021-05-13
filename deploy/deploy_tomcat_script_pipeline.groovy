@@ -1,4 +1,4 @@
-node('master') {
+node('linux_root') {
     stage('同步源码') {
             git([url: 'git@github.com:testdemo11/JeeSite4.git, branch: '${branch}'])
     }
