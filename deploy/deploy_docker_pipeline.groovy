@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'master'
+        label 'linux_root'
     }
 
     environment {
@@ -10,19 +10,23 @@ pipeline {
 
     parameters {
         string(name: 'branch', defaultValue: 'master', description: 'Git branch')
+        string(name: 'mysql_docker_ip', defaultValue: '192.168.42.130', description: 'ip')
+        string(name: 'mysql_port', defaultValue: '3306', description: 'port')
+        string(name: 'mysql_user', defaultValue: 'root', description: 'user')
+        string(name: 'mysql_pwd', defaultValue: '12345678', description: 'password')
     }
 
     stages{
         stage('同步源码') {
             steps {
-                git url:'git@gitee.com:11547299/jeesite4.git', branch:"$params.branch"
+                git url:'git@github.com:testdemo11/JeeSite4.git', branch:"$params.branch"
             }
         }
 
         stage('设定配置文件'){
             steps{
                 sh '''
-                    . ~/.bash_profile
+                    source /etc/profile
             
                     export os_type=`uname`
                     cd ${WORKSPACE}/web/bin/docker
@@ -44,7 +48,7 @@ pipeline {
         stage('Maven 编译'){
             steps {
                 sh '''
-                    . ~/.bash_profile 
+                    source /etc/profile
                     
                     cd ${WORKSPACE}/root
                     mvn clean install -Dmaven.test.skip=true
