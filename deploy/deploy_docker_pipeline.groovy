@@ -6,14 +6,18 @@ pipeline {
     environment {
         docker_image_name = 'jeesite4'
         docker_container_name = 'iJeesite4'
+        mysql_docker_ip = '192.168.42.130'
+        mysql_port = '3306'
+        mysql_user = 'root'
+        mysql_pwd = '12345678'
     }
 
     parameters {
         string(name: 'branch', defaultValue: 'master', description: 'Git branch')
-        string(name: 'mysql_docker_ip', defaultValue: '192.168.42.130', description: 'ip')
-        string(name: 'mysql_port', defaultValue: '3306', description: 'port')
-        string(name: 'mysql_user', defaultValue: 'root', description: 'user')
-        string(name: 'mysql_pwd', defaultValue: '12345678', description: 'password')
+        //string(name: 'mysql_docker_ip', defaultValue: '192.168.42.130', description: 'ip')
+        //string(name: 'mysql_port', defaultValue: '3306', description: 'port')
+        //string(name: 'mysql_user', defaultValue: 'root', description: 'user')
+        //string(name: 'mysql_pwd', defaultValue: '12345678', description: 'password')
     }
 
     stages{
